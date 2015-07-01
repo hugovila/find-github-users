@@ -1,0 +1,28 @@
+
+curl -i -u application_name:application_password --data '{"value": "my_password"}' http://localhost:8095/crowd/rest/usermanagement/1/authentication?username=my_username --header 'Content-Type: application/json' --header 'Accept: application/json'
+
+
+curl --data '{q: hugovila}' api.github.com/search/users
+
+xmlhttp.open("GET","api.github.com/search/users?q=hugovila&repos:%3E42",true);
+xmlhttp.send();
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, true );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+{
+  "message": "Validation Failed",
+  "errors": [
+    {
+      "resource": "Search",
+      "field": "q",
+      "code": "missing"
+    }
+  ],
+  "documentation_url": "https://developer.github.com/v3/search"
+}
