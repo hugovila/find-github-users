@@ -1,23 +1,58 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Github Users</title>
         <link rel="stylesheet" href="./css/main.css" media="screen" title="no title" charset="utf-8">
         <link rel="stylesheet" href="./css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+        <script src="https://code.jquery.com/jquery-2.1.4.js" charset="utf-8"></script>
         <script src="./src/github-users-app.js" charset="utf-8"></script>
     </head>
     <body id="github-users-app">
         <div class="container">
             <div class="row input form-group">
-                <h1>Gitub users</h1>
-                <label for="github-user">Find Github User</label>
-                <input type="text" name="search" value="" id="github-user" class="form-control" placeholder="Find Github user ...">
+                <h1>Github Users</h1>
+                <div class="form-group">
+                    <label for="github-user-onchange">Find Github User onchange</label>
+                    <input type="text" name="search" value="" id="github-user-onchange" class="form-control" placeholder="Find Github user onchange...">
+                </div>
+                <div class="form-group">
+                    <label for="github-user-oninput">Find Github User oninput</label>
+                    <input type="text" name="search" value="" id="github-user-oninput" class="form-control" placeholder="Find Github user oninput...">
+                </div>
             </div>
-            <div class="row result">
-                <p>
-                    Result search ...
-                </p>
+            <div id="search-result" class="row form-group result">
+                <div id="result-user-info" class="col-md-12 user-info">
+                    <p>
+                        Result search ...
+                    </p>
+                </div>
+            </div>
+            <div id="raw-search-result" class="row form-group raw-result">
+                <div class="col-md-12">
+                    <label for="items-found">Items found</label>
+                    <input type="text" name="name" value="" id="items-found" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                </div>
+                <div class="col-md-12">
+                    <label for="raw-result">Raw output result</label>
+                    <textarea name="name" rows="10" cols="80" id="raw-result" class="form-control"></textarea>
+                </div>
             </div>
         </div>
+        <section>
+            <div class="container footer">
+                <div class="row">
+                    <p>
+                        This is the Footer
+                    </p>
+                </div>
+            </div>
+        </section>
+        <script charset="utf-8">
+            window.onload = initialize('Hugo');
+        </script>
     </body>
 </html>
