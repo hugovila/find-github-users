@@ -1,7 +1,10 @@
+
 .user-result {
     border: 1px solid #a0a0a0;
     padding: 8px 6px 0px 6px;
     max-width: 10%;
+
+    margin-bottom: 8px;
 
     display: block;
     margin-left: auto;
