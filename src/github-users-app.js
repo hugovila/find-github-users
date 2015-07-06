@@ -1,10 +1,12 @@
 /*global document, console */
 
+var GithubUsers = (function () {
+
 var xmlHttp = null;
 var baseUrl = 'https://api.github.com/search/users?q=';
 var USERSTOSHOW = 10;
 
-function showSeachResult(info) {
+var _showSeachResult = function (info) {
     //'use strict';
     this.info = info;
 
@@ -57,21 +59,21 @@ function showSeachResult(info) {
     }
 }
 
-function eventInputSearch(event) {
+var _eventInputSearch = function (event) {
     console.log(event.target.value);
     if (event.target.value.length >= 3) {
-        httpGet(baseUrl + event.target.value);
+        _httpGet(baseUrl + event.target.value);
     }
 }
 
-function httpGet(theUrl) {
+var _httpGet = function (theUrl) {
     xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = ProcessRequest;
+    xmlHttp.onreadystatechange = _ProcessRequest;
     xmlHttp.open("GET", theUrl, true);
     xmlHttp.send(null);
 }
 
-function ProcessRequest() {
+var _ProcessRequest = function () {
 if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) {
     if (xmlHttp.responseText == "Not found") {
         document.getElementById("raw-items-found").value = "Not found";
@@ -79,7 +81,7 @@ if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) {
     } else {
         var info = eval ( "(" + xmlHttp.responseText + ")" );
 
-        showSeachResult(info);
+        _showSeachResult(info);
 
         document.getElementById("raw-items-found").value = info.total_count;
         document.getElementById("raw-result").value = xmlHttp.responseText;
@@ -87,10 +89,16 @@ if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) {
     }
 }
 
-function initialize() {
-    userSearchOnChange = document.getElementById('github-user-onchange');
-    userSearchOnChange.addEventListener('change', eventInputSearch, false);
-    userSearchOnInput = document.getElementById('github-user-oninput');
-    userSearchOnInput.addEventListener('input', eventInputSearch, false);
-    console.log("Initialize: Ok");
-}
+var publicObject = {
+    initialize: function () {
+        userSearchOnChange = document.getElementById('github-user-onchange');
+        userSearchOnChange.addEventListener('change', _eventInputSearch, false);
+        userSearchOnInput = document.getElementById('github-user-oninput');
+        userSearchOnInput.addEventListener('input', _eventInputSearch, false);
+        console.log("Initialize: Ok");
+    }
+};
+
+return publicObject;
+
+})();
