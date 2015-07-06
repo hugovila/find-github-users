@@ -1,4 +1,5 @@
 /*global document, console */
+
 var xmlHttp = null;
 var baseUrl = 'https://api.github.com/search/users?q=';
 var USERSTOSHOW = 10;
@@ -6,6 +7,9 @@ var USERSTOSHOW = 10;
 function showSeachResult(info) {
     //'use strict';
     this.info = info;
+
+    document.getElementById("items-found").innerHTML = info.total_count;
+
     if (info.total_count > USERSTOSHOW) {
         this.usersToShow = USERSTOSHOW;
     } else {
@@ -28,6 +32,7 @@ function showSeachResult(info) {
     var ilElement = document.createElement("il");
     ulElement.appendChild(ilElement);
     newResultUserInfo.appendChild(ulElement);
+
     for (i = 0; i < this.usersToShow; i += 1) {
         var userResult = document.createElement("div");
         userResult.setAttribute('class', 'user-result');
@@ -54,7 +59,9 @@ function showSeachResult(info) {
 
 function eventInputSearch(event) {
     console.log(event.target.value);
-    httpGet(baseUrl + event.target.value);
+    if (event.target.value.length >= 3) {
+        httpGet(baseUrl + event.target.value);
+    }
 }
 
 function httpGet(theUrl) {
@@ -67,14 +74,14 @@ function httpGet(theUrl) {
 function ProcessRequest() {
 if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) {
     if (xmlHttp.responseText == "Not found") {
-        document.getElementById("items-found").value = "Not found";
+        document.getElementById("raw-items-found").value = "Not found";
         document.getElementById("raw-result").value = "";
     } else {
         var info = eval ( "(" + xmlHttp.responseText + ")" );
 
         showSeachResult(info);
 
-        document.getElementById("items-found").value = info.total_count;
+        document.getElementById("raw-items-found").value = info.total_count;
         document.getElementById("raw-result").value = xmlHttp.responseText;
         }
     }

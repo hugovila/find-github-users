@@ -22,9 +22,12 @@
                 </div>
             </div>
             <div id="search-result" class="row form-group result">
+                <div class="col-md-12">
+                    <h4>Items found <span id="items-found">0 Results</span></h4>
+                </div>
                 <div id="result-user-info" class="col-md-12 result-user-info">
                     <p>
-                        Result search ...
+                        Search result ...
                     </p>
                     <div class="user-result">
                         <img src="https://avatars.githubusercontent.com/u/30441?v=3" alt="" />
@@ -37,14 +40,14 @@
             <div id="raw-search-result" class="row form-group raw-result">
                 <div class="col-md-12">
                     <label for="items-found">Items found</label>
-                    <input type="text" name="name" value="" id="items-found" class="form-control">
+                    <input type="text" name="name" value="" id="raw-items-found" class="form-control" readonly>
                 </div>
                 <div class="col-md-12">
                     &nbsp;
                 </div>
                 <div class="col-md-12">
                     <label for="raw-result">Raw output result</label>
-                    <textarea name="name" rows="10" cols="80" id="raw-result" class="form-control"></textarea>
+                    <textarea name="name" rows="10" cols="80" id="raw-result" class="form-control" readonly></textarea>
                 </div>
             </div>
         </div>
