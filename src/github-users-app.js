@@ -3,19 +3,20 @@
 var GithubUsers = (function () {
 
     var xmlHttp = null;
-    var baseUrl = 'https://api.github.com/search/users?q=';
-    var USERSTOSHOW = 10;
+    var BASEURL = 'https://api.github.com/search/users?q=';
+    var USERSTOSHOW = 16;
 
     var _showSeachResult = function (info) {
         //'use strict';
         this.info = info;
+        var countSearchResult = this.info.total_count;
 
-        document.getElementById("items-found").innerHTML = info.total_count;
+        document.getElementById("items-found").innerHTML = countSearchResult;
 
-        if (info.total_count > USERSTOSHOW) {
+        if (countSearchResult > USERSTOSHOW) {
             this.usersToShow = USERSTOSHOW;
         } else {
-            this.usersToShow = info.total_count;
+            this.usersToShow = countSearchResult;
         }
         var searchResult = document.getElementById("search-result"),
             resultUserInfo = document.getElementById("result-user-info"),
@@ -23,47 +24,41 @@ var GithubUsers = (function () {
 
         searchResult.removeChild(resultUserInfo);
 
-        // Crear nodo de tipo Element
         var newResultUserInfo = document.createElement("div");
         newResultUserInfo.setAttribute('id', 'result-user-info');
         newResultUserInfo.setAttribute('class', "col-md-12 result-user-info");
         searchResult.appendChild(newResultUserInfo);
-        // searchResult.replaceChild(resultUserInfo, newResultUserInfo);
 
         var ulElement = document.createElement("ul");
-        var ilElement = document.createElement("il");
-        ulElement.appendChild(ilElement);
-        newResultUserInfo.appendChild(ulElement);
 
         for (i = 0; i < this.usersToShow; i += 1) {
+            var liElement = document.createElement("li");
+            ulElement.appendChild(liElement);
+
             var userResult = document.createElement("div");
             userResult.setAttribute('class', 'user-result');
 
             var imgElement = document.createElement("img");
-            console.log(this.info);
+            imgElement.setAttribute('id', this.info.items[i].login);
             imgElement.setAttribute('alt', 'Identicon');
             imgElement.setAttribute('src', this.info.items[i].avatar_url);
 
             var pElement = document.createElement("p");
 
-            // Crear nodo de tipo Text
-            console.log(this.info);
-            var userLogin = document.createTextNode(this.info.items[i].login);
+            var userLogin = document.createTextNode(this.info.items[i].login.slice(0, 14));
 
-            // Añadir el nodo Text como hijo del nodo Element
             pElement.appendChild(userLogin);
 
-            // Añadir el nodo Element como hijo del elemento padre
             userResult.appendChild(imgElement);
             userResult.appendChild(pElement);
-            ilElement.appendChild(userResult);
+            liElement.appendChild(userResult);
         }
+        newResultUserInfo.appendChild(ulElement);
     };
 
     var _eventInputSearch = function (event) {
-        console.log(event.target.value);
         if (event.target.value.length >= 3) {
-            _httpGet(baseUrl + event.target.value);
+            _httpGet(BASEURL + event.target.value);
         }
     };
 
