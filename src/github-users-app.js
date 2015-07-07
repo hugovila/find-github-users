@@ -56,10 +56,20 @@ var GithubUsers = (function () {
         newResultUserInfo.appendChild(ulElement);
     };
 
-    var _eventInputSearch = function (event) {
-        if (event.target.value.length >= 3) {
-            _httpGet(BASEURL + event.target.value);
+    var _urlToSearch = function (user) {
+        _httpGet(BASEURL + user);
+    };
+
+    var _triggerNormalizer = function (user) {
+        this.user = user;
+        if (this.user.length >= 3) {
+            _urlToSearch(this.user);
         }
+    };
+
+    var _eventInputNormalizer = function (event) {
+        var user = event.target.value;
+        _triggerNormalizer(user);
     };
 
     var _httpGet = function (theUrl) {
@@ -87,9 +97,9 @@ var GithubUsers = (function () {
 
     var initialize = function () {
         userSearchOnChange = document.getElementById('github-user-onchange');
-        userSearchOnChange.addEventListener('change', _eventInputSearch, false);
+        userSearchOnChange.addEventListener('change', _eventInputNormalizer, false);
         userSearchOnInput = document.getElementById('github-user-oninput');
-        userSearchOnInput.addEventListener('input', _eventInputSearch, false);
+        userSearchOnInput.addEventListener('input', _eventInputNormalizer, false);
         console.log("Initialize: Ok");
     };
 
