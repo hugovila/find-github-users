@@ -85,7 +85,8 @@ var GithubUsers = (function () {
             document.getElementById("raw-items-found").value = "Not found";
             document.getElementById("raw-result").value = "";
         } else {
-            var info = eval ( "(" + xmlHttp.responseText + ")" );
+            //var info = eval ( "(" + xmlHttp.responseText + ")" );
+            var info = JSON.parse(xmlHttp.responseText);
 
             _showSeachResult(info);
 
