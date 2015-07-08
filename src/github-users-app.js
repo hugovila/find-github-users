@@ -38,6 +38,9 @@ var GithubUsers = (function () {
             var userResult = document.createElement("div");
             userResult.setAttribute('class', 'user-result');
 
+            var aElement = document.createElement("a");
+            aElement.setAttribute('href', this.info.items[i].html_url);
+
             var imgElement = document.createElement("img");
             imgElement.setAttribute('id', this.info.items[i].login);
             imgElement.setAttribute('alt', 'Identicon');
@@ -49,7 +52,8 @@ var GithubUsers = (function () {
 
             pElement.appendChild(userLogin);
 
-            userResult.appendChild(imgElement);
+            aElement.appendChild(imgElement);
+            userResult.appendChild(aElement);
             userResult.appendChild(pElement);
             liElement.appendChild(userResult);
         }
@@ -57,7 +61,7 @@ var GithubUsers = (function () {
     };
 
     var _urlToSearch = function (user) {
-        _httpGet(BASEURL + user);
+        _httpGet(BASEURL + user + '+in:fullname');
     };
 
     var _triggerNormalizer = function (user) {
@@ -85,7 +89,6 @@ var GithubUsers = (function () {
             document.getElementById("raw-items-found").value = "Not found";
             document.getElementById("raw-result").value = "";
         } else {
-            //var info = eval ( "(" + xmlHttp.responseText + ")" );
             var info = JSON.parse(xmlHttp.responseText);
 
             _showSeachResult(info);

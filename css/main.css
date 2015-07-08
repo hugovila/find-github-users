@@ -26,3 +26,7 @@
 .user-result p {
     text-align: center;
 }
+
+#raw-result {
+    max-width: 100%;
+}
